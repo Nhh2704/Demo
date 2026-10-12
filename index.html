@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Không gian cá nhân để ghi nhớ, học tập, tập trung và quản lý tài chính.">
+  <title>Personal Brain — Không gian của bạn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" aria-label="Personal Brain trang chủ">
+        <span class="brand-mark"><i class="fa-solid fa-brain"></i></span>
+        <span><strong>personal<span class="brand-accent">brain</span></strong><small>YOUR SECOND MIND</small></span>
+      </a>
+      <div class="sidebar-label">KHÔNG GIAN</div>
+      <nav class="main-nav" aria-label="Điều hướng chính">
+        <a class="nav-link active" href="#dashboard" data-page="dashboard"><i class="fa-solid fa-grid-2"></i><span>Tổng quan</span></a>
+        <a class="nav-link" href="#memories" data-page="memories"><i class="fa-regular fa-images"></i><span>Kỷ niệm</span><span class="nav-count" id="memory-count">0</span></a>
+        <a class="nav-link" href="#knowledge" data-page="knowledge"><i class="fa-solid fa-book-open"></i><span>Tri thức</span></a>
+        <a class="nav-link" href="#focus" data-page="focus"><i class="fa-solid fa-headphones"></i><span>Tập trung</span></a>
+        <a class="nav-link" href="#finance" data-page="finance"><i class="fa-solid fa-chart-line"></i><span>Tài chính</span></a>
+        <a class="nav-link" href="#news" data-page="news"><i class="fa-regular fa-newspaper"></i><span>Bản tin</span><span class="nav-count" id="saved-count">0</span></a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="storage-card">
+          <span class="storage-icon"><i class="fa-solid fa-shield-heart"></i></span>
+          <div><strong>Dữ liệu của bạn</strong><p>Lưu riêng tư trên thiết bị này.</p></div>
+          <span class="status-dot"></span>
+        </div>
+        <div class="profile">
+          <div class="avatar">Y</div><div class="profile-copy"><strong>Góc nhỏ của bạn</strong><span>Không gian cá nhân</span></div>
+          <button class="icon-button" id="export-data" title="Tải xuống dữ liệu" aria-label="Tải xuống dữ liệu"><i class="fa-solid fa-arrow-down"></i></button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="icon-button menu-toggle" id="menu-toggle" aria-label="Mở menu"><i class="fa-solid fa-bars"></i></button>
+        <div class="breadcrumb"><span>Không gian cá nhân</span><i class="fa-solid fa-chevron-right"></i><strong id="page-breadcrumb">Tổng quan</strong></div>
+        <div class="topbar-actions">
+          <span class="today-label" id="today-label"></span>
+          <button class="icon-button" id="theme-toggle" title="Đổi giao diện" aria-label="Đổi giao diện"><i class="fa-regular fa-sun"></i></button>
+          <div class="avatar avatar-small">Y</div>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <section class="page-section active" id="page-dashboard">
+          <div class="welcome-row">
+            <div><div class="eyebrow"><span class="live-dot"></span> THỨC DẬY VỚI MỤC ĐÍCH</div><h1 id="greeting">Chào bạn <span class="wave">✦</span></h1><p class="muted">Một ngày mới, một cơ hội mới để tiến gần hơn đến điều bạn mong muốn.</p></div>
+            <div class="clock-card"><i class="fa-regular fa-clock"></i><span id="live-clock">--:--:--</span><small id="clock-date"></small></div>
+          </div>
+          <div class="dashboard-grid">
+            <article class="card quote-card">
+              <div class="card-heading"><span class="icon-chip indigo"><i class="fa-solid fa-quote-left"></i></span><span class="eyebrow">MỘT CHÚT CẢM HỨNG</span><button class="icon-button subtle" id="new-quote" title="Trích dẫn khác" aria-label="Trích dẫn khác"><i class="fa-solid fa-rotate"></i></button></div>
+              <blockquote id="daily-quote"></blockquote><span class="quote-author" id="quote-author"></span>
+            </article>
+            <article class="card weather-card">
+              <div class="card-heading"><span class="icon-chip cyan"><i class="fa-solid fa-cloud-sun"></i></span><span class="eyebrow">THỜI TIẾT HÔM NAY</span></div>
+              <div class="weather-main"><span class="weather-symbol" id="weather-symbol"><i class="fa-solid fa-cloud"></i></span><div><strong id="weather-temperature">--°</strong><span id="weather-description">Đang cập nhật</span></div></div>
+              <div class="weather-footer"><span id="weather-location"><i class="fa-solid fa-location-dot"></i> Thời tiết địa phương</span><button class="text-button" id="refresh-weather">Làm mới <i class="fa-solid fa-arrow-right"></i></button></div>
+            </article>
+            <article class="card shortcuts-card">
+              <div class="card-heading"><div><span class="eyebrow">LỐI TẮT CỦA BẠN</span><h2>Ghé nhanh</h2></div><button class="icon-button subtle" data-open-dialog="bookmark-dialog" title="Thêm lối tắt" aria-label="Thêm lối tắt"><i class="fa-solid fa-plus"></i></button></div>
+              <div class="shortcut-grid" id="bookmark-list"></div>
+            </article>
+            <article class="card scratch-card">
+              <div class="card-heading"><div><span class="eyebrow">GHI LẠI Ý TƯỞNG</span><h2>Ghi chú nhanh</h2></div><span class="save-indicator" id="scratch-status"><i class="fa-solid fa-cloud-arrow-up"></i> Tự lưu</span></div>
+              <textarea id="scratchpad" placeholder="Viết xuống trước khi ý tưởng bay mất..." aria-label="Ghi chú nhanh"></textarea>
+              <div class="scratch-footer"><span>Chỉ lưu trên trình duyệt của bạn</span><span id="scratch-count">0 ký tự</span></div>
+            </article>
+            <article class="card focus-widget">
+              <div class="card-heading"><div><span class="eyebrow">NHỊP ĐIỆU CỦA BẠN</span><h2>Thời gian tập trung</h2></div><span class="icon-chip emerald"><i class="fa-solid fa-stopwatch"></i></span></div>
+              <div class="focus-widget-bottom"><div><strong>25<span> phút</span></strong><small>Một phiên Pomodoro</small></div><a class="button button-secondary" href="#focus" data-page-link="focus">Bắt đầu <i class="fa-solid fa-arrow-right"></i></a></div>
+            </article>
+            <article class="card privacy-card"><span class="privacy-mark"><i class="fa-solid fa-lock"></i></span><div><strong>Riêng tư theo thiết kế</strong><p>Ghi chú, ảnh và thông tin tài chính của bạn được lưu trong trình duyệt, không gửi lên máy chủ.</p></div></article>
+          </div>
+        </section>
+
+        <section class="page-section" id="page-memories">
+          <div class="section-heading"><div><div class="eyebrow">NHỮNG ĐIỀU ĐÁNG NHỚ</div><h1>Kỷ niệm <span class="heading-accent">của bạn</span></h1><p class="muted">Giữ lại những khoảnh khắc khiến cuộc sống trở nên đặc biệt.</p></div><button class="button button-primary" data-open-dialog="memory-dialog"><i class="fa-solid fa-plus"></i> Thêm kỷ niệm</button></div>
+          <div class="filter-row" id="memory-filters"><button class="filter-chip active" data-filter="all">Tất cả</button><button class="filter-chip" data-filter="Gia đình">Gia đình</button><button class="filter-chip" data-filter="Du lịch">Du lịch</button><button class="filter-chip" data-filter="Sự nghiệp">Sự nghiệp</button><button class="filter-chip" data-filter="Bản thân">Bản thân</button></div>
+          <div id="memory-timeline" class="memory-timeline"></div>
+        </section>
+
+        <section class="page-section" id="page-knowledge">
+          <div class="section-heading"><div><div class="eyebrow">HỌC HỎI MỖI NGÀY</div><h1>Kho <span class="heading-accent">tri thức</span></h1><p class="muted">Gom góp kiến thức, kết nối ý tưởng, và không ngừng phát triển.</p></div><button class="button button-primary" data-open-dialog="note-dialog"><i class="fa-solid fa-plus"></i> Ghi chú mới</button></div>
+          <div class="knowledge-toolbar"><label class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="knowledge-search" type="search" placeholder="Tìm ghi chú, từ khóa..." aria-label="Tìm ghi chú"></label><select id="knowledge-category" aria-label="Lọc theo chủ đề"><option value="all">Tất cả chủ đề</option><option>Ngôn ngữ</option><option>Tài chính</option><option>Kinh tế</option><option>Phát triển bản thân</option><option>Khác</option></select><button class="button button-secondary" id="flashcard-toggle"><i class="fa-solid fa-clone"></i> Ôn flashcard</button></div>
+          <div class="category-strip" id="category-strip"></div>
+          <div class="knowledge-layout"><div class="notes-grid" id="notes-list"></div><aside class="flashcard-panel" id="flashcard-panel" hidden><div class="eyebrow">ÔN TẬP NHANH</div><div class="flashcard" id="flashcard"><span>NHẤN ĐỂ LẬT THẺ</span><strong id="flashcard-front">Chưa có thẻ</strong><p id="flashcard-back">Thêm ghi chú với từ khóa “flashcard” để bắt đầu.</p></div><div class="flashcard-actions"><button class="icon-button" id="flashcard-prev" aria-label="Thẻ trước"><i class="fa-solid fa-arrow-left"></i></button><span id="flashcard-index">0 / 0</span><button class="icon-button" id="flashcard-next" aria-label="Thẻ tiếp theo"><i class="fa-solid fa-arrow-right"></i></button></div></aside></div>
+        </section>
+
+        <section class="page-section" id="page-focus">
+          <div class="section-heading"><div><div class="eyebrow">TẠO KHÔNG GIAN CHO DÒNG CHẢY</div><h1>Góc <span class="heading-accent">tập trung</span></h1><p class="muted">Tắt nhiễu, bật nhịp điệu của riêng bạn.</p></div><span class="focus-status"><span class="live-dot"></span> Âm thanh tạo ngay trên thiết bị</span></div>
+          <div class="focus-layout">
+            <article class="card pomodoro-card"><div class="card-heading"><div><span class="eyebrow">POMODORO TIMER</span><h2 id="pomodoro-label">Đến giờ tập trung</h2></div><span class="icon-chip indigo"><i class="fa-solid fa-hourglass-half"></i></span></div><div class="timer-ring" id="timer-ring"><div><strong id="timer-display">25:00</strong><span id="timer-mode">TẬP TRUNG</span></div></div><div class="timer-controls"><button class="button button-primary" id="timer-start"><i class="fa-solid fa-play"></i> Bắt đầu</button><button class="button button-secondary" id="timer-reset"><i class="fa-solid fa-rotate-left"></i> Đặt lại</button></div><div class="timer-settings"><label>Tập trung <select id="focus-duration"><option value="25">25 phút</option><option value="45">45 phút</option><option value="50">50 phút</option></select></label><label>Nghỉ ngắn <select id="break-duration"><option value="5">5 phút</option><option value="10">10 phút</option><option value="15">15 phút</option></select></label></div></article>
+            <article class="card sound-card"><div class="card-heading"><div><span class="eyebrow">ÂM THANH MÔI TRƯỜNG</span><h2>Tạo không gian của bạn</h2></div><span class="icon-chip cyan"><i class="fa-solid fa-wave-square"></i></span></div><p class="muted sound-intro">Âm thanh được tổng hợp trực tiếp bằng Web Audio — không cần tải nhạc.</p><div class="sound-options"><button class="sound-option" data-sound="rain"><span class="sound-emoji">🌧️</span><strong>Mưa rơi</strong><small>Êm dịu & đều đặn</small><span class="sound-toggle"><i class="fa-solid fa-play"></i></span></button><button class="sound-option" data-sound="ocean"><span class="sound-emoji">🌊</span><strong>Sóng biển</strong><small>Nhịp sóng thư thái</small><span class="sound-toggle"><i class="fa-solid fa-play"></i></span></button><button class="sound-option" data-sound="cafe"><span class="sound-emoji">☕</span><strong>Quán cà phê</strong><small>Tiếng ồn nền ấm áp</small><span class="sound-toggle"><i class="fa-solid fa-play"></i></span></button></div><label class="volume-control"><i class="fa-solid fa-volume-low"></i><input id="sound-volume" type="range" min="0" max="100" value="35" aria-label="Âm lượng"><i class="fa-solid fa-volume-high"></i></label><p class="sound-note" id="sound-note">Chọn một âm thanh để bắt đầu. Hãy tăng âm lượng từ từ.</p></article>
+          </div>
+        </section>
+
+        <section class="page-section" id="page-finance">
+          <div class="section-heading"><div><div class="eyebrow">HIỂU RÕ DÒNG TIỀN</div><h1>Bức tranh <span class="heading-accent">tài chính</span></h1><p class="muted">Theo dõi thu chi và danh mục cá nhân — dữ liệu chỉ lưu trên thiết bị.</p></div><button class="button button-primary" data-open-dialog="transaction-dialog"><i class="fa-solid fa-plus"></i> Giao dịch mới</button></div>
+          <div class="finance-summary"><article class="card summary-card"><span>Tổng thu</span><strong class="positive-value" id="income-total">0 ₫</strong><i class="fa-solid fa-arrow-trend-up summary-symbol"></i></article><article class="card summary-card"><span>Tổng chi</span><strong class="negative-value" id="expense-total">0 ₫</strong><i class="fa-solid fa-arrow-trend-down summary-symbol"></i></article><article class="card summary-card"><span>Số dư thu chi</span><strong id="balance-total">0 ₫</strong><i class="fa-solid fa-wallet summary-symbol"></i></article></div>
+          <div class="finance-layout"><article class="card chart-card"><div class="card-heading"><div><span class="eyebrow">DÒNG TIỀN CỦA BẠN</span><h2>Thu nhập & chi tiêu</h2></div><select id="chart-period" aria-label="Khoảng thời gian biểu đồ"><option value="6">6 tháng</option><option value="12">12 tháng</option></select></div><div class="chart-wrap"><canvas id="finance-chart" aria-label="Biểu đồ thu chi theo tháng"></canvas></div></article><article class="card watchlist-card"><div class="card-heading"><div><span class="eyebrow">THEO DÕI THỦ CÔNG</span><h2>Danh sách quan tâm</h2></div><button class="icon-button subtle" data-open-dialog="stock-dialog" title="Thêm mã" aria-label="Thêm mã"><i class="fa-solid fa-plus"></i></button></div><p class="data-disclaimer"><i class="fa-solid fa-circle-info"></i> Giá do bạn tự nhập, không phải dữ liệu thị trường trực tiếp.</p><div id="watchlist"></div></article></div>
+          <article class="card transactions-card"><div class="card-heading"><div><span class="eyebrow">NHẬT KÝ GẦN ĐÂY</span><h2>Giao dịch</h2></div><span class="save-indicator"><i class="fa-solid fa-lock"></i> Riêng tư</span></div><div id="transactions-list"></div></article>
+        </section>
+
+        <section class="page-section" id="page-news">
+          <div class="section-heading"><div><div class="eyebrow">CẬP NHẬT THẾ GIỚI</div><h1>Bản tin <span class="heading-accent">mỗi ngày</span></h1><p class="muted">Lối tắt đến nguồn tin đáng tin cậy. Lưu bài viết để đọc lại sau.</p></div><a class="button button-secondary" href="https://news.google.com/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Khám phá tin mới</a></div>
+          <div class="news-filters" id="news-filters"><button class="filter-chip active" data-news-filter="Tất cả">Tất cả</button><button class="filter-chip" data-news-filter="Công nghệ">Công nghệ</button><button class="filter-chip" data-news-filter="Kinh tế">Kinh tế</button><button class="filter-chip" data-news-filter="Thế giới">Thế giới</button><button class="filter-chip" data-news-filter="Đã lưu"><i class="fa-regular fa-bookmark"></i> Đã lưu</button></div>
+          <div class="news-grid" id="news-list"></div>
+          <div class="feed-sources"><span>Nguồn tham khảo:</span><a href="https://vnexpress.net/" target="_blank" rel="noopener noreferrer">VnExpress</a><a href="https://www.bbc.com/news" target="_blank" rel="noopener noreferrer">BBC News</a><a href="https://techcrunch.com/" target="_blank" rel="noopener noreferrer">TechCrunch</a><a href="https://www.reuters.com/" target="_blank" rel="noopener noreferrer">Reuters</a></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  <dialog class="app-dialog" id="bookmark-dialog"><form method="dialog" id="bookmark-form"><div class="dialog-heading"><div><span class="eyebrow">TÙY BIẾN KHÔNG GIAN</span><h2>Thêm lối tắt</h2></div><button class="icon-button" value="cancel" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button></div><label>Tên hiển thị<input name="title" required maxlength="32" placeholder="Ví dụ: Notion"></label><label>Địa chỉ trang web<input name="url" required type="url" placeholder="https://example.com"></label><label>Biểu tượng<select name="icon"><option value="fa-globe">🌐 Trang web</option><option value="fa-envelope">✉️ Email</option><option value="fa-book">📚 Học tập</option><option value="fa-briefcase">💼 Công việc</option><option value="fa-music">🎵 Âm nhạc</option><option value="fa-code">💻 Lập trình</option></select></label><button class="button button-primary dialog-submit" type="submit">Lưu lối tắt</button></form></dialog>
+  <dialog class="app-dialog" id="memory-dialog"><form method="dialog" id="memory-form"><div class="dialog-heading"><div><span class="eyebrow">LƯU GIỮ KHOẢNH KHẮC</span><h2>Thêm kỷ niệm</h2></div><button class="icon-button" value="cancel" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button></div><label>Tiêu đề<input name="title" required maxlength="80" placeholder="Điều gì làm ngày này đặc biệt?"></label><div class="form-row"><label>Ngày<input name="date" type="date" required></label><label>Chủ đề<select name="category"><option>Gia đình</option><option>Du lịch</option><option>Sự nghiệp</option><option>Bản thân</option></select></label></div><label>Mô tả<textarea name="description" rows="3" maxlength="300" placeholder="Ghi lại một vài dòng..."></textarea></label><label>Ảnh (tối đa 1,5 MB)<input name="image" type="file" accept="image/*"></label><button class="button button-primary dialog-submit" type="submit">Lưu kỷ niệm</button></form></dialog>
+  <dialog class="app-dialog" id="note-dialog"><form method="dialog" id="note-form"><div class="dialog-heading"><div><span class="eyebrow">GOM GÓP KIẾN THỨC</span><h2>Ghi chú mới</h2></div><button class="icon-button" value="cancel" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button></div><label>Tiêu đề<input name="title" required maxlength="90" placeholder="Ví dụ: Từ vựng tiếng Anh — tuần 1"></label><label>Chủ đề<select name="category"><option>Ngôn ngữ</option><option>Tài chính</option><option>Kinh tế</option><option>Phát triển bản thân</option><option>Khác</option></select></label><label>Nội dung<textarea name="content" rows="6" required maxlength="5000" placeholder="Viết ghi chú bằng Markdown cơ bản..."></textarea></label><label>Từ khóa<input name="tags" maxlength="100" placeholder="flashcard, tiếng Anh (cách nhau bằng dấu phẩy)"></label><button class="button button-primary dialog-submit" type="submit">Lưu ghi chú</button></form></dialog>
+  <dialog class="app-dialog" id="stock-dialog"><form method="dialog" id="stock-form"><div class="dialog-heading"><div><span class="eyebrow">DANH SÁCH QUAN TÂM</span><h2>Thêm mã theo dõi</h2></div><button class="icon-button" value="cancel" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button></div><label>Mã cổ phiếu<input name="symbol" required maxlength="10" placeholder="Ví dụ: VNM"></label><label>Tên doanh nghiệp<input name="name" required maxlength="50" placeholder="Ví dụ: Vinamilk"></label><div class="form-row"><label>Giá hiện tại (₫)<input name="price" required type="number" min="0" step="any" placeholder="70000"></label><label>Thay đổi (%)<input name="change" required type="number" step="any" placeholder="1.2"></label></div><button class="button button-primary dialog-submit" type="submit">Lưu mã</button></form></dialog>
+  <dialog class="app-dialog" id="transaction-dialog"><form method="dialog" id="transaction-form"><div class="dialog-heading"><div><span class="eyebrow">GHI LẠI DÒNG TIỀN</span><h2>Giao dịch mới</h2></div><button class="icon-button" value="cancel" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button></div><label>Loại giao dịch<select name="type"><option value="income">Thu nhập</option><option value="expense">Chi tiêu</option></select></label><label>Nội dung<input name="title" required maxlength="60" placeholder="Ví dụ: Lương tháng 10"></label><div class="form-row"><label>Số tiền (₫)<input name="amount" required type="number" min="1" step="any" placeholder="1000000"></label><label>Ngày<input name="date" type="date" required></label></div><button class="button button-primary dialog-submit" type="submit">Lưu giao dịch</button></form></dialog>
+  <dialog class="lightbox-dialog" id="lightbox-dialog"><button class="icon-button lightbox-close" id="lightbox-close" aria-label="Đóng ảnh"><i class="fa-solid fa-xmark"></i></button><button class="lightbox-arrow lightbox-prev" id="lightbox-prev" aria-label="Ảnh trước"><i class="fa-solid fa-chevron-left"></i></button><figure><img id="lightbox-image" alt=""><figcaption id="lightbox-caption"></figcaption></figure><button class="lightbox-arrow lightbox-next" id="lightbox-next" aria-label="Ảnh tiếp theo"><i class="fa-solid fa-chevron-right"></i></button></dialog>
+</body>
+</html>
